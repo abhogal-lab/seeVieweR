@@ -6,7 +6,7 @@ It supports **volume rendering, overlays, masks, erosion, slice controls, and hi
 
 ## 🎬Volumentric rendering with multiple overlays 
 
-![seeVieweR Demo](docs/volumetric.gif)  
+![seeVieweR Demo](docs/volumetric.png)  
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
@@ -42,6 +42,10 @@ It supports **volume rendering, overlays, masks, erosion, slice controls, and hi
 ## 🎬Generate 3D rendered videos! 
 
 ![seeVieweR Demo](docs/inflow_post.gif) 
+
+## 🎬one-click capture of viewer image
+
+![seeVieweR Demo](docs/frame.png) 
 
 ## 🚀 Installation
 1. Download the latest **`seeVieweR.mlappinstall`** release from this repository.  
@@ -81,4 +85,6 @@ It supports **volume rendering, overlays, masks, erosion, slice controls, and hi
 
 ## 📖 License
 Distributed under the GNU GPL v3 (or later). See `LICENSE` for details.  
+
+## Dont hesitate to report bugs or make feature requests
 
