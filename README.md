@@ -70,9 +70,11 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 | **Base Alpha Spinner** | Base volume opacity. |
 | **Overlay Alpha Spinner** | Overlay opacity. |
 | **Contrast Spinner** | Adjust base contrast (gamma warp). |
+| **Set Mask Switch** | Independently apply base/overlay masks |
 | **Flip Map Switch** | Invert colormap (base/overlay). |
 | **Lighting Switch** | Toggle lighting on/off. |
 | **Denoising Switch** | Toggle denoising filter. |
+| **Overlay Dropdown** | Switch between different overlay images. |
 | **Colormap Dropdowns** | Choose base/overlay colormap. |
 | **Rendering Dropdown** | Select rendering style (volume, MIP, etc.). |
 | **Background Dropdown** | Set background color. |
