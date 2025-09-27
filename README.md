@@ -8,9 +8,11 @@
 **seeVieweR** is a MATLAB App Designer tool for interactive exploration of 3-D and 4-D neuroimaging data.  
 It supports **volume rendering, overlays, masks, erosion, slice controls, and high-quality export** — all from a clean and responsive interface.  
 
+It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), which is designed to process MRI vascular reactivity data
+
 ## 🎬Volumetric rendering with multiple overlays 
 
-![seeVieweR Demo](docs/volumetric.png)  
+![INFLOW](docs/volumetric.png)  
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
@@ -41,15 +43,15 @@ It supports **volume rendering, overlays, masks, erosion, slice controls, and hi
 
 ## 🎬Export .png or .svg to make quick figures for publications 
 
-![seeVieweR Demo](docs/CVR_smth_CONN.png) 
+![SLICER](docs/CVR_smth_CONN.png) 
 
 ## 🎬Generate 3D rendered videos! 
 
-![seeVieweR Demo](docs/inflow_post.gif) 
+![MOVIES](docs/inflow_post.gif) 
 
 ## 🎬one-click capture of viewer image
 
-![seeVieweR Demo](docs/frame.png) 
+![FRAME CAPTURE](docs/frame.png) 
 
 ## 🚀 Installation
 1. Download the latest **`seeVieweR.mlappinstall`** release from this repository.  
