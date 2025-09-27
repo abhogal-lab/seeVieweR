@@ -84,7 +84,7 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 | **Save/Load State** | Full restoration of viewer settings. |
 
 ## 📦 Requirements
-- MATLAB R2023b or later (R2024a+ recommended).  
+- MATLAB R2023b or later (R2023b recommended).  
 - Image Processing Toolbox.  
 - Statistics & Machine Learning Toolbox (for some functions).  
 - Optional: [`brewermap`](https://nl.mathworks.com/matlabcentral/fileexchange/45208-cbrew-brewer-colormaps) / [`crameri`](https://www.mathworks.com/matlabcentral/fileexchange/52398-crameri-perceptually-uniform-colormaps) colormap toolboxes.  
