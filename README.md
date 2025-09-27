@@ -1,10 +1,13 @@
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![MATLAB](https://img.shields.io/badge/MATLAB-R2023b+-orange.svg)
+
 # seeVieweR 🧠🔍  
 *A fast, interactive MATLAB App for neuroimaging visualization*  
 
 **seeVieweR** is a MATLAB App Designer tool for interactive exploration of 3-D and 4-D neuroimaging data.  
 It supports **volume rendering, overlays, masks, erosion, slice controls, and high-quality export** — all from a clean and responsive interface.  
 
-## 🎬Volumentric rendering with multiple overlays 
+## 🎬Volumetric rendering with multiple overlays 
 
 ![seeVieweR Demo](docs/volumetric.png)  
 
