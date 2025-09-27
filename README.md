@@ -1,5 +1,6 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ![MATLAB](https://img.shields.io/badge/MATLAB-R2023b+-orange.svg)
+[![Hits](https://hits.sh/github.com/YourUser/seeVieweR.svg?style=flat-square&color=blue&label=views)](https://hits.sh/github.com/YourUser/seeVieweR/)
 
 # seeVieweR 🧠🔍  
 *A fast, interactive MATLAB App for neuroimaging visualization*  
