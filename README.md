@@ -7,7 +7,7 @@ It supports **volume rendering, overlays, masks, erosion, slice controls, and hi
 ## 🎬 Demo (animated)  
 *(Replace this placeholder with your own `.gif` demo)*  
 
-![seeVieweR Demo](docs/seeVieweR_demo.gif)  
+![seeVieweR Demo](docs/inflow_post.gif)  
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
