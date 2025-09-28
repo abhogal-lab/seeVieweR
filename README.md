@@ -12,12 +12,12 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 
 ## 🎬Volumetric rendering with multiple overlays 
 
-![LOGO](docs/volumetric.png)  
+<img src="docs/logo_doc.png" alt="Logo" width="200"/>
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
   
-![INFLOW](docs/logo_doc.png)  
+![LOGO](docs/volumetric.png)
 
 - **Overlay support**  
   Load multiple overlays with independent colormaps, thresholds, alpha transparency, and saved states.  
