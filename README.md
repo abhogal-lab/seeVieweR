@@ -12,7 +12,7 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 
 ## 🎬Volumetric rendering with multiple overlays 
 
-<img src="docs/logo_doc.png" alt="Logo" width="200"/>
+<img src="docs/logo_doc.png" alt="Logo" width="300"/>
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
