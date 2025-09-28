@@ -3,9 +3,9 @@
 [![Hits](https://hits.sh/github.com/YourUser/seeVieweR.svg?style=flat-square&color=blue&label=views)](https://hits.sh/github.com/YourUser/seeVieweR/)
 
 # seeVieweR 🧠🔍  
-*A fast, interactive MATLAB App for neuroimaging visualization*  
+*A MATLAB App for 3D visualization of nifti data 
 
-**seeVieweR** is a MATLAB App Designer tool for interactive exploration of 3-D and 4-D neuroimaging data.  
+**seeVieweR** is a MATLAB tool for interactive exploration of 3-D and 4-D neuroimaging data.  
 It supports **volume rendering, overlays, masks, erosion, slice controls, and high-quality export** — all from a clean and responsive interface.  
 
 It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), which is designed to process MRI vascular reactivity data
@@ -16,8 +16,7 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 
 ## ✨ Features
 - **High-quality 3-D/4-D visualization**  
-  Built on `viewer3d` + `volshow` with a single persistent instance for fast updates.  
-
+  
 - **Overlay support**  
   Load multiple overlays with independent colormaps, thresholds, alpha transparency, and saved states.  
 
@@ -29,27 +28,30 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 
 - **Custom colormaps & histograms**  
   Compact colorbar panels with inline histograms (percentile-clipped & sqrt-scaled).  
+  Want me to add different colormaps? .... just let me know
 
 - **Masking**  
-  - Brain masks  
-  - ROI/territory masks  
-  - Slice masks  
+  - Independent masks for base and overlay image: this means you can load one
+image as your base and overlay and apply different masks with unique colormaps 
+too highlight regions  
+  - Slice masks: apply a mask to the base image but noy overlay, or the other way
+around  
 
 - **Export & reproducibility**  
   - PNG snapshots with colorbars  
-  - Quick slice mosaics in any orientation  
+  - Quick slice mosaics in any orientation (.png or .svg)
   - Animated GIF/MP4 movie export (time series or rotating camera)  
   - Full state save/load for reproducible visualization  
 
-## 🎬Export .png or .svg to make quick figures for publications 
+## 🎬Export figures for publications 
 
 ![SLICER](docs/CVR_smth_CONN.png) 
 
-## 🎬Generate 3D rendered videos! 
+## 🎬Generate 3D rendered videos
 
 ![MOVIES](docs/inflow_post.gif) 
 
-## 🎬one-click capture of viewer image
+## 🎬One-click capture of viewer image
 
 ![FRAME CAPTURE](docs/frame.png) 
 
@@ -78,7 +80,6 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
 | **Colormap Dropdowns** | Choose base/overlay colormap. |
 | **Rendering Dropdown** | Select rendering style (volume, MIP, etc.). |
 | **Background Dropdown** | Set background color. |
-| **Territory Dropdown** | Apply vascular territory masks. |
 | **Erosion Controls** | Vessel erosion with skeleton protection. |
 | **Export Frame** | PNG + colorbars. |
 | **Quick Plot** | Slice mosaics. |
