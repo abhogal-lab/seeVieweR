@@ -36,7 +36,7 @@ It is a companion to the [seeVR toolbox](https://github.com/abhogal-lab/seeVR), 
   - Independent masks for base and overlay image: this means you can load one
 image as your base and overlay and apply different masks with unique colormaps 
 too highlight regions  
-  - Slice masks: apply a mask to the base image but noy overlay, or the other way
+  - Slice masks: apply a mask to the base image but not overlay, or the other way
 around  
 
 - **Export & reproducibility**  
