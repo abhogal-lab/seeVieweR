@@ -84,15 +84,14 @@ around
 | **Background Dropdown** | Set background color. |
 | **Erosion Controls** | Vessel erosion with skeleton protection. |
 | **Export Frame** | PNG + colorbars. |
-| **Quick Plot** | Slice mosaics. |
+| **Generate Plot** | Slice mosaics. |
 | **Export Movie** | Animated GIF/MP4. |
+| **Export nifti** | save masked/upsampled images |
 | **Save/Load State** | Full restoration of viewer settings. |
 
 ## 📦 Requirements
 - MATLAB R2023b or later (R2023b recommended).  
 - Image Processing Toolbox.  
-- Statistics & Machine Learning Toolbox (for some functions).  
-- Optional: [`brewermap`](https://nl.mathworks.com/matlabcentral/fileexchange/45208-cbrew-brewer-colormaps) / [`crameri`](https://www.mathworks.com/matlabcentral/fileexchange/52398-crameri-perceptually-uniform-colormaps) colormap toolboxes.  
 
 ## 📖 License
 Distributed under the GNU GPL v3 (or later). See `LICENSE` for details.  
