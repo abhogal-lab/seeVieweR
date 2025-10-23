@@ -22,52 +22,81 @@ function volOnBase = overlay_to_base(baseVol, baseInfo, movVol, movInfo, method)
 % baseInfo: niftiinfo struct for base volume
 % movVol  : moving volume [Y X Z]
 % movInfo : niftiinfo struct for moving volume
-% method  : interpolation method (default: 'linear')
+% method  : interpolation method (default: 'cubic')
+%
+% Behavior:
+% - If valid affines are available for BOTH volumes: do your original
+%   world→voxel mapping + interpn (unchanged).
+% - If an affine is missing/invalid for EITHER volume: fall back to
+%   "as-is" overlay. If sizes differ, resample movVol to size(baseVol)
+%   using index-space interpolation (no physical-space assumptions).
 
     if nargin < 5, method = 'cubic'; end
 
-    % Extract affine matrices
-    A_base = getAffineMatrix(baseInfo);
-    A_mov  = getAffineMatrix(movInfo);
+    % --- Try to get affines; if either fails, fall back to size-based resample
+    A_base = safeGetAffineMatrix(baseInfo);
+    A_mov  = safeGetAffineMatrix(movInfo);
 
-    % Generate voxel grid for base volume (0-based indexing)
-    [Yi, Xi, Zi] = ndgrid(0:size(baseVol,1)-1, ...
-                          0:size(baseVol,2)-1, ...
-                          0:size(baseVol,3)-1);
+    if ~isempty(A_base) && ~isempty(A_mov)
+        % ================== ORIGINAL (AFFINE) PATH — UNCHANGED ==================
+        % Generate voxel grid for base volume (0-based indexing)
+        [Yi, Xi, Zi] = ndgrid(0:size(baseVol,1)-1, ...
+                              0:size(baseVol,2)-1, ...
+                              0:size(baseVol,3)-1);
 
-    baseVox = [Yi(:), Xi(:), Zi(:), ones(numel(Yi), 1)];
+        baseVox = [Yi(:), Xi(:), Zi(:), ones(numel(Yi), 1)];
 
-    % Convert base voxel indices to world coordinates
-    worldPts = baseVox * A_base';
+        % Convert base voxel indices to world coordinates
+        worldPts = baseVox * A_base';
 
-    % Convert world coordinates to moving image voxel indices
-    movVox = worldPts * inv(A_mov)';
+        % Convert world coordinates to moving image voxel indices
+        movVox = worldPts * inv(A_mov)';
 
-    ym = movVox(:,1) + 1;
-    xm = movVox(:,2) + 1;
-    zm = movVox(:,3) + 1;
+        ym = movVox(:,1) + 1;
+        xm = movVox(:,2) + 1;
+        zm = movVox(:,3) + 1;
 
-    
-    % Interpolate moving volume at computed voxel positions
-    volOnBase = interpn(double(movVol), ym, xm, zm, method, NaN);
-    % spline kernels smear a few epsilon-level numbers into the NaN area
-    volOnBase( abs(volOnBase) < 1e-5 ) = NaN;
-    volOnBase = reshape(volOnBase, size(baseVol));
+        % Interpolate moving volume at computed voxel positions
+        volOnBase = interpn(double(movVol), ym, xm, zm, method, NaN);
+
+        % Clean tiny spline-smear epsilons in NaN regions
+        volOnBase(abs(volOnBase) < 1e-5) = NaN;
+
+        % Reshape back into base geometry
+        volOnBase = reshape(volOnBase, size(baseVol));
+        % =======================================================================
+    else
+        % ============ FALLBACK: "AS-IS" OVERLAY IN INDEX SPACE ==================
+        volOnBase = resampleToBaseSize(movVol, size(baseVol), method);
+        % =========================================================================
+    end
+end
+
+function A = safeGetAffineMatrix(info)
+% Returns 4x4 affine matrix if available; otherwise [] (no error)
+
+    try
+        A = getAffineMatrix(info);
+    catch
+        A = [];
+    end
 end
 
 function A = getAffineMatrix(info)
-% Constructs a 4x4 voxel-to-world affine matrix from NIfTI header information
+% Constructs a 4x4 voxel-to-world affine matrix from NIfTI header information.
+% (Original logic preserved.)
 
     % Check for sform matrix
     if isfield(info, 'raw') && isfield(info.raw, 'sform_code') && info.raw.sform_code > 0
         % Construct affine matrix from srow_x, srow_y, srow_z
         A = [info.raw.srow_x; info.raw.srow_y; info.raw.srow_z; 0 0 0 1];
+
     elseif isfield(info, 'raw') && isfield(info.raw, 'qform_code') && info.raw.qform_code > 0
         % Construct affine matrix from qform parameters
         b = info.raw.quatern_b;
         c = info.raw.quatern_c;
         d = info.raw.quatern_d;
-        a = sqrt(1.0 - (b^2 + c^2 + d^2));
+        a = sqrt(max(0, 1.0 - (b^2 + c^2 + d^2))); % guard small negatives
 
         qfac = info.raw.pixdim(1);
         if qfac == 0
@@ -89,12 +118,42 @@ function A = getAffineMatrix(info)
         A = eye(4);
         A(1:3,1:3) = R;
         A(1:3,4) = [info.raw.qoffset_x; info.raw.qoffset_y; info.raw.qoffset_z];
+
     else
         % Fallback: use Transform.T if available
-        if isfield(info, 'Transform') && isfield(info.Transform, 'T')
+        if isfield(info, 'Transform') && isfield(info.Transform, 'T') && ~isempty(info.Transform.T)
             A = info.Transform.T;
         else
             error('No valid affine transformation found in NIfTI header.');
         end
     end
+end
+
+function volB = resampleToBaseSize(volA, targetSize, method)
+% Pure index-space resample of volA to targetSize (no header/affine needed).
+% If sizes match, returns volA unchanged. Uses interpn with NaN fill.
+
+    srcSize = size(volA);
+    if numel(srcSize) ~= 3
+        error('resampleToBaseSize expects a 3D volume.');
+    end
+
+    if isequal(srcSize, targetSize)
+        volB = double(volA);
+        return;
+    end
+
+    % Build source grids
+    [yA, xA, zA] = ndgrid(1:srcSize(1), 1:srcSize(2), 1:srcSize(3));
+
+    % Build target grids mapped into source index space
+    yq = linspace(1, srcSize(1), targetSize(1));
+    xq = linspace(1, srcSize(2), targetSize(2));
+    zq = linspace(1, srcSize(3), targetSize(3));
+    [yQ, xQ, zQ] = ndgrid(yq, xq, zq);
+
+    volB = interpn(yA, xA, zA, double(volA), yQ, xQ, zQ, method, NaN);
+
+    % Clean tiny spline-smear epsilons in NaN regions
+    volB(abs(volB) < 1e-5) = NaN;
 end
